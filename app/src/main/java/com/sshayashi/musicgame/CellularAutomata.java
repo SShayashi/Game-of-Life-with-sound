@@ -8,20 +8,13 @@ public class CellularAutomata {
     int[][][] world;
     int width, height;
 
-    enum Status{
-        a,
-        b,
-        c
-    };
+
 
     CellularAutomata(int width, int height){
         this.width = width;
         this.height = height;
-        //sx * sy の大きさの配列を2つ準備
         //ここで、1つめは現在の世代、2つめは次の世代を保管するために使う
         world = new int[this.width][this.height][2];
-
-
     }
 
     void update(){

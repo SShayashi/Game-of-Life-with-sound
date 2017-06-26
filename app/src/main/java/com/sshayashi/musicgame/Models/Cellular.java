@@ -1,4 +1,4 @@
-package com.sshayashi.musicgame;
+package com.sshayashi.musicgame.Models;
 
 /**
  * Created by starprince on 2017/06/24.

@@ -1,0 +1,12 @@
+<com.sshayashi.musicgame.CellView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cell="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cell_view"
+    style="@style/CellViewStyle"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    cell:color="@color/colorAccent"
+    cell:height="24sp"
+    cell:num="10"
+    cell:text="hello"
+    cell:width="24sp" />

@@ -3,27 +3,44 @@ package com.sshayashi.musicgame;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.v7.widget.AppCompatButton;
+import android.view.ViewGroup;
+
+import com.google.android.gms.plus.PlusOneButton;
 
 
 /**
  * TODO: document your custom view class.
  */
 public class CellView extends AppCompatButton {
-    private String mText = ""; // TODO: use a default from R.string...
+    private String mText = "";
+    int INDEX_X = 0;
+    int INDEX_Y = 0;
     private float mTextWidth;
     private float mTextHeight;
+
+    // TODO: Rename and change types and number of parameters
+    public static CellView newInstance(Context context, int param1, int param2) {
+        CellView cell = new CellView(context);
+        cell.INDEX_X = param1;
+        cell.INDEX_Y = param2;
+//        Bundle args = new Bundle();
+//        args.putString(X, param1);
+//        args.putString(Y, param2);
+        return cell;
+    }
 
     public CellView(Context context) {
         this(context,null);
     }
 
     public CellView(Context context, AttributeSet attrs) {
-        this(context, attrs, R.layout.cell_view);
+        this(context, attrs, R.attr.buttonStyle);
     }
 
     public CellView(Context context, AttributeSet attrs, int defStyle) {
@@ -32,9 +49,6 @@ public class CellView extends AppCompatButton {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View cell_layout = inflater.inflate(R.layout.cell_view, null);
-
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.CellView , defStyle, 0);
         a.recycle();

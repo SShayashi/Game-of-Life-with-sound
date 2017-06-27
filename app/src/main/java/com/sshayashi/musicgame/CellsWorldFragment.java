@@ -31,11 +31,15 @@ public class CellsWorldFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_cells_world, container, false);
         TableLayout tableLayout = (TableLayout) v.findViewById(R.id.table_container);
 
-        TableRow tableRow1 = new TableRow(c);
-        tableLayout.addView(tableRow1);
-        View cell_layout = inflater.inflate(R.layout.cell_view, null);
-        CellView cell =  (CellView) cell_layout.findViewById(R.id.cell_view);
-        tableRow1.addView(cell);
+        for(int i=1;i<=100;i++){
+            TableRow tableRow = new TableRow(c);
+            for(int j=1;j<=100;j++) {
+                View cellLayout = inflater.inflate(R.layout.cell_view, null);
+                CellView cell = (CellView) cellLayout.findViewById(R.id.cell_view);
+                tableRow.addView(cell);
+            }
+            tableLayout.addView(tableRow);
+        }
 
 
         return v;

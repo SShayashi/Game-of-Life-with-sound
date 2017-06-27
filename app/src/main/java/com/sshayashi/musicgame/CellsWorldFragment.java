@@ -31,9 +31,9 @@ public class CellsWorldFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_cells_world, container, false);
         TableLayout tableLayout = (TableLayout) v.findViewById(R.id.table_container);
 
-        for(int i=1;i<=100;i++){
+        for(int i=1;i<=6;i++){
             TableRow tableRow = new TableRow(c);
-            for(int j=1;j<=100;j++) {
+            for(int j=1;j<=6;j++) {
                 View cellLayout = inflater.inflate(R.layout.cell_view, null);
                 CellView cell = (CellView) cellLayout.findViewById(R.id.cell_view);
                 tableRow.addView(cell);

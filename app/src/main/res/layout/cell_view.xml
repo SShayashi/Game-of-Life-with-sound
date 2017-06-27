@@ -1,10 +1,6 @@
 <com.sshayashi.musicgame.CellView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cell="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cell_view"
-    style="@style/AlertDialog.AppCompat"
     android:layout_width="50dp"
     android:layout_height="50dp"
-    android:background="@drawable/btn_cell"
-    android:elevation="0dp"
-    android:padding="0dp"
-    android:text="hello" />
+    android:background="@drawable/btn_cell" />

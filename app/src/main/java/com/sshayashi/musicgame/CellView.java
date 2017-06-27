@@ -27,10 +27,6 @@ public class CellView extends AppCompatButton {
     int INDEX_Y = 0;
     private float mTextWidth;
     private float mTextHeight;
-    private AudioAttributes audioAttributes;
-    private SoundPool soundPool;
-
-    private int soundOne, soundTwo;
 
 //    // TODO: Rename and change types and number of parameters
 //    public static CellView newInstance(Context context, int param1, int param2) {
@@ -61,7 +57,7 @@ public class CellView extends AppCompatButton {
                 attrs, R.styleable.CellView , defStyle, 0);
         a.recycle();
 
-//        initSoundPool();
+
         OnClickListener listener = new OnClickListener() {
             @Override
             public void onClick(View v) {

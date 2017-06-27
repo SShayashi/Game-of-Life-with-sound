@@ -20,7 +20,7 @@ import android.widget.AdapterView;
 import com.google.android.gms.plus.model.people.Person;
 
 public class MainActivity extends AppCompatActivity {
-    int width_length = 10;
+    int width_length = 12;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater inflater = getLayoutInflater();
                 View cellLayout = inflater.inflate(R.layout.cell_view, null);
                 CellView cell = (CellView) cellLayout.findViewById(R.id.cell_view);
+                cell.INDEX_X=i;
+                cell.INDEX_Y=j;
 //                ViewGroup.LayoutParams l = cell.getLayoutParams();
 //                cell.setLayoutParams(l);
                 list.add(cell);

@@ -22,11 +22,11 @@ import java.util.List;
 public class ViewAdapter extends ArrayAdapter<CellView> {
     private int resourceId;
     private Context mContext;
+    private List<CellView> clist;
 
     public ViewAdapter(Context context, int resource, List<CellView> objects) {
         super(context, resource, objects);
-        resourceId = resource;
-        mContext = context;
+        clist =objects;
     }
 
     @Override
@@ -34,7 +34,8 @@ public class ViewAdapter extends ArrayAdapter<CellView> {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(resourceId, null);
+//            convertView = inflater.inflate(resourceId, null);
+            convertView =  clist.get(position);
         }
         CellView view = (CellView) convertView;
         return view;

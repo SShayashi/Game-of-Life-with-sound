@@ -3,12 +3,14 @@ package com.sshayashi.musicgame;
 import android.content.res.Resources;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.util.zip.Inflater;
 
 import android.support.v4.graphics.BitmapCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.graphics.Bitmap;
@@ -43,24 +45,20 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<CellView> load() {
         ArrayList<CellView> list = new ArrayList<CellView>();
+        int view_id = 1;
         for(int i=1;i<=width_length;i++) {
             for(int j=1;j<= 50; j++) {
                 LayoutInflater inflater = getLayoutInflater();
                 View cellLayout = inflater.inflate(R.layout.cell_view, null);
                 CellView cell = (CellView) cellLayout.findViewById(R.id.cell_view);
+                list.add(cell);
+                cell.setId(R.id.cell_view + view_id);
+                cell.setTag("" + view_id);
+                view_id++;
                 cell.INDEX_X=i;
                 cell.INDEX_Y=j;
-//                ViewGroup.LayoutParams l = cell.getLayoutParams();
-//                cell.setLayoutParams(l);
-                list.add(cell);
             }
         }
-//        for (int i = 0; i < c.getCount(); i++) {
-//            long id = c.getLong(c.getColumnIndexOrThrow("_id"));
-//            Bitmap bmp = MediaStore.Images.Thumbnails.getThumbnail(cr, id, MediaStore.Images.Thumbnails.MICRO_KIND, null);
-//            list.add(bmp);
-//            c.moveToNext();
-//        }
         return list;
     }
 

@@ -62,6 +62,9 @@ public class CellView extends AppCompatButton {
             @Override
             public void onClick(View v) {
                 Log.d("Cell View","button clicked");
+                int i =v.getId();
+                Object a = v.getTag();
+                Log.i("Clicked", ""+v.getId());
             }
         };
         this.setOnClickListener(listener);

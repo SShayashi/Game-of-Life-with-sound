@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<CellView> list = new ArrayList<CellView>();
         int view_id = 1;
         for(int i=1;i<=width_length;i++) {
-            for(int j=1;j<= 20; j++) {
+            for(int j=1;j<= 11; j++) {
                 LayoutInflater inflater = getLayoutInflater();
                 View cellLayout = inflater.inflate(R.layout.cell_view, null);
                 CellView cell = (CellView) cellLayout.findViewById(R.id.cell_view);

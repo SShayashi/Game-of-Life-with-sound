@@ -4,6 +4,7 @@ import android.content.res.Resources;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.TimerTask;
 import java.util.zip.Inflater;
 
 import android.support.v4.graphics.BitmapCompat;
@@ -18,10 +19,17 @@ import android.graphics.BitmapFactory;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.AdapterView;
+import android.os.Handler;
+import java.util.Timer;
 
 import com.google.android.gms.plus.model.people.Person;
 
 public class MainActivity extends AppCompatActivity {
+    private Timer timer = null;
+    private Handler handler = null;
+    private MyTimerTask timerTask = null;
+    private int count=0;
+
     int width_length = 12;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +49,17 @@ public class MainActivity extends AppCompatActivity {
 //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //        transaction.add(R.id.main_container, fragment);
 //        transaction.commit();
+        handler = new Handler();
+        timerTask = new MyTimerTask();
+        timer = new Timer();
+        timer.schedule(timerTask,500,500);
     }
 
     private ArrayList<CellView> load() {
         ArrayList<CellView> list = new ArrayList<CellView>();
         int view_id = 1;
         for(int i=1;i<=width_length;i++) {
-            for(int j=1;j<= 50; j++) {
+            for(int j=1;j<= 20; j++) {
                 LayoutInflater inflater = getLayoutInflater();
                 View cellLayout = inflater.inflate(R.layout.cell_view, null);
                 CellView cell = (CellView) cellLayout.findViewById(R.id.cell_view);
@@ -62,4 +74,17 @@ public class MainActivity extends AppCompatActivity {
         return list;
     }
 
+    class MyTimerTask extends TimerTask{
+
+        @Override
+        public void run() {
+            handler.post( new Runnable() {
+                public void run() {
+                    count++;
+                    Log.i("update","hoge" +count);
+                }
+            });
+        }
+    }
 }
+

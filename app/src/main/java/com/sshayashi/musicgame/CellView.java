@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.v7.widget.AppCompatButton;
 
@@ -31,11 +32,11 @@ public class CellView extends AppCompatButton {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View cell_layout = inflater.inflate(R.layout.cell_view, null);
 
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.CellView , defStyle, 0);
-//        mText = a.getString(R.styleable.CellView_text);
-//        int b = a.getInt(R.styleable.CellView_num,0);
         a.recycle();
 
         OnClickListener listener = new OnClickListener() {

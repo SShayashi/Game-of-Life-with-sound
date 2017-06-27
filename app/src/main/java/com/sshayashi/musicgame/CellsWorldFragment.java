@@ -33,16 +33,10 @@ public class CellsWorldFragment extends Fragment {
 
         TableRow tableRow1 = new TableRow(c);
         tableLayout.addView(tableRow1);
-        tableRow1.addView(new Button(c));
-        tableRow1.addView(new Button(c));
-
-        TableRow tableRow2 = new TableRow(c);
-        tableLayout.addView(tableRow2);
-        tableRow2.addView(new Button(c));
-
         View cell_layout = inflater.inflate(R.layout.cell_view, null);
         CellView cell =  (CellView) cell_layout.findViewById(R.id.cell_view);
-        tableRow2.addView(cell);
+        tableRow1.addView(cell);
+
 
         return v;
     }

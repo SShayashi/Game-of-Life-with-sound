@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     tools:context="com.sshayashi.musicgame.CellsWorldFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TableLayout
         android:id="@+id/table_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
     </TableLayout>
+
 
 
 </FrameLayout>

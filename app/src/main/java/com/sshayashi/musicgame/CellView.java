@@ -3,7 +3,11 @@ package com.sshayashi.musicgame;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,17 +27,21 @@ public class CellView extends AppCompatButton {
     int INDEX_Y = 0;
     private float mTextWidth;
     private float mTextHeight;
+    private AudioAttributes audioAttributes;
+    private SoundPool soundPool;
 
-    // TODO: Rename and change types and number of parameters
-    public static CellView newInstance(Context context, int param1, int param2) {
-        CellView cell = new CellView(context);
-        cell.INDEX_X = param1;
-        cell.INDEX_Y = param2;
-//        Bundle args = new Bundle();
-//        args.putString(X, param1);
-//        args.putString(Y, param2);
-        return cell;
-    }
+    private int soundOne, soundTwo;
+
+//    // TODO: Rename and change types and number of parameters
+//    public static CellView newInstance(Context context, int param1, int param2) {
+//        CellView cell = new CellView(context);
+//        cell.INDEX_X = param1;
+//        cell.INDEX_Y = param2;
+////        Bundle args = new Bundle();
+////        args.putString(X, param1);
+////        args.putString(Y, param2);
+//        return cell;
+//    }
 
     public CellView(Context context) {
         this(context,null);
@@ -53,6 +61,7 @@ public class CellView extends AppCompatButton {
                 attrs, R.styleable.CellView , defStyle, 0);
         a.recycle();
 
+//        initSoundPool();
         OnClickListener listener = new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +77,8 @@ public class CellView extends AppCompatButton {
         super.onDraw(canvas);
 
     }
+
+
 
 
 

@@ -11,6 +11,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.v7.widget.AppCompatButton;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import com.google.android.gms.plus.PlusOneButton;
  * TODO: document your custom view class.
  */
 public class CellView extends AppCompatButton {
-    private String mText = "";
+    private int isAlive =0;
     int INDEX_X = 0;
     int INDEX_Y = 0;
     private float mTextWidth;
@@ -57,17 +58,28 @@ public class CellView extends AppCompatButton {
                 attrs, R.styleable.CellView , defStyle, 0);
         a.recycle();
 
-
-        OnClickListener listener = new OnClickListener() {
+        OnTouchListener oListener = (new OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Log.d("Cell View","button clicked");
-                int i =v.getId();
-                Object a = v.getTag();
-                Log.i("Clicked", ""+v.getId());
+            public boolean onTouch(View v, MotionEvent event) {
+                // show interest in events resulting from ACTION_DOWN
+                if (event.getAction() == MotionEvent.ACTION_DOWN) return true;
+                // don't handle event unless its ACTION_UP so "doSomething()" only runs once.
+                if (event.getAction() != MotionEvent.ACTION_UP) return false;
+                ((CellView)v).reverseStatus();
+                return true;
             }
-        };
-        this.setOnClickListener(listener);
+        });
+
+//
+//        OnClickListener listener = new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int i =v.getId();
+//                ((CellView)v).reverseStatus();
+//                Log.i("Clicked", ""+v.getId());
+//            }
+//        };
+        this.setOnTouchListener(oListener);
 
     }
 
@@ -77,15 +89,14 @@ public class CellView extends AppCompatButton {
 
     }
 
-
-
-
-
-    public String getExampleString() {
-        return mText;
-    }
-
-    public void setExampleString(String exampleString) {
-        mText = exampleString;
+    public void reverseStatus(){
+        if(isAlive == 0) {
+            isAlive = 1;
+            this.setPressed(true);
+        }else if(isAlive ==1) {
+            isAlive = 0;
+            this.setPressed(false);
+        } else
+            Log.d("error","error");
     }
 }

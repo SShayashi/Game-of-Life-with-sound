@@ -65,9 +65,10 @@ public class SoundPlayer
         return;
     }
 
-    public void play(int id){
+    public void play(int id,int rate){
         int len = musicIds.length;
-        soundPool.play(id%len, 1.0f, 1.0f, 0, 0, 1);
+        float r = (float) rate / 11.0f;
+        soundPool.play(musicIds[id%len], 1.0f, 1.0f, 0, 1, 2 * r);
         return ;
     }
 }

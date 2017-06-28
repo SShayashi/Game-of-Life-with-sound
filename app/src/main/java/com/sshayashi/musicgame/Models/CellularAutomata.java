@@ -3,6 +3,8 @@ package com.sshayashi.musicgame.Models;
 /**
  * Created by starprince on 2017/06/24.
  */
+import com.sshayashi.musicgame.SoundPlayer;
+
 import java.util.Random;
 
 public class CellularAutomata {

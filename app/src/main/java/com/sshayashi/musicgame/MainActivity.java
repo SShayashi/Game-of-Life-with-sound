@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        SoundPlayer s = SoundPlayer.getInstance();
         model = new CellularAutomata(width_length,height_lenght);
         int num = width_length;
         gridView = (GridView)findViewById(R.id.main_table);
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             if ((model.world[cell.INDEX_X][cell.INDEX_Y][1] == 1)
                     || (model.world[cell.INDEX_X][cell.INDEX_Y][1] == 0
                     && model.world[cell.INDEX_X][cell.INDEX_Y][0] == 1))
+                SoundPlayer.getInstance().play(cell.INDEX_X,cell.INDEX_Y);
                 cell.setChecked(true);
 
             if(model.world[cell.INDEX_X][cell.INDEX_Y][1] == 0)

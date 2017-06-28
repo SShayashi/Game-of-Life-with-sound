@@ -3,6 +3,7 @@ package com.sshayashi.musicgame.Models;
 /**
  * Created by starprince on 2017/06/24.
  */
+import java.util.Random;
 
 public class CellularAutomata {
     int[][][] world;
@@ -10,14 +11,21 @@ public class CellularAutomata {
 
 
 
-    CellularAutomata(int width, int height){
+    public CellularAutomata(int width, int height){
         this.width = width;
         this.height = height;
         //ここで、1つめは現在の世代、2つめは次の世代を保管するために使う
         world = new int[this.width][this.height][2];
+
+        Random r = new Random();
+        int n = r.nextInt(50);
+        for (int i = 0; i < this.width * this.height; i++) {
+            world[r.nextInt(this.width)][r.nextInt(this.height)][1] = 1;
+        }
+//        random配置をするかも
     }
 
-    void update(){
+    public void update(){
 
         for (int x = 0; x < width; x=x+1) {
             for (int y = 0; y < height; y=y+1) {

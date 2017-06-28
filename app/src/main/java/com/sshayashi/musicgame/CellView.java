@@ -59,19 +59,6 @@ public class CellView extends AppCompatButton implements Checkable {
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.CellView , defStyle, 0);
         a.recycle();
-
-        OnTouchListener oListener = (new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // show interest in events resulting from ACTION_DOWN
-                if (event.getAction() == MotionEvent.ACTION_DOWN) return true;
-                // don't handle event unless its ACTION_UP so "doSomething()" only runs once.
-                if (event.getAction() != MotionEvent.ACTION_UP) return false;
-                ((CellView)v).toggle();
-                return true;
-            }
-        });
-        this.setOnTouchListener(oListener);
     }
 
     @Override

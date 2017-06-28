@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,21 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new ViewAdapter(getApplicationContext(), R.layout.cell_view, list);
         gridView.setAdapter(adapter);
-
-
-//        BitmapAdapter adapter;
-//        View v = inflater.inflate(R.layout.fragment_cells_world, container, false);
-//        CellsWorldFragment fragment = new CellsWorldFragment();
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.add(R.id.main_container, fragment);
-//        transaction.commit();
         handler = new Handler();
         timerTask = new MyTimerTask();
         timer = new Timer();
         timer.schedule(timerTask,500,500);
     }
 
-    private ArrayList<CellView> load(CellularAutomata model) {
+    private ArrayList<CellView> load(final CellularAutomata model) {
         ArrayList<CellView> list = new ArrayList<CellView>();
         for(int i=0;i<width_length;i++) {
             for(int j=0;j< height_lenght; j++) {
@@ -78,13 +71,29 @@ public class MainActivity extends AppCompatActivity {
                     cell.setChecked(true);
                 }
                 list.add(cell);
+
+                View.OnTouchListener oListener = (new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_DOWN) return true;
+                        if (event.getAction() != MotionEvent.ACTION_UP) return false;
+                        CellView cv = (CellView)v;
+                        if(cv.isChecked())
+                            model.world[cv.INDEX_X][cv.INDEX_Y][1]=0;
+                        else
+                            model.world[cv.INDEX_X][cv.INDEX_Y][1]=1;
+                        cv.toggle();
+                        return true;
+                    }
+                });
+                cell.setOnTouchListener(oListener);
+
             }
         }
         return list;
     }
 
     public void reflectionModel(CellularAutomata model){
-//        adapter.clear();
         for(CellView cell :list){
             if ((model.world[cell.INDEX_X][cell.INDEX_Y][1] == 1)
                     || (model.world[cell.INDEX_X][cell.INDEX_Y][1] == 0
@@ -94,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
             if(model.world[cell.INDEX_X][cell.INDEX_Y][1] == 0)
                 cell.setChecked(false);
         }
-//        adapter.addAll(list);
-//        adapter.notifyDataSetChanged();
     }
 
     class MyTimerTask extends TimerTask{
@@ -107,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
                     model.update();
                     reflectionModel(model);
                     adapter.notifyDataSetChanged();
-//                    gridView.invalidateViews();
                     count++;
                     Log.i("update","hoge" +count);
                 }

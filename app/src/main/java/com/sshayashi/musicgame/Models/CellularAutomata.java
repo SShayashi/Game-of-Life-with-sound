@@ -18,12 +18,9 @@ public class CellularAutomata {
         world = new int[this.width][this.height][2];
 
         Random r = new Random();
-//        int n = r.nextInt(50);
         for (int i = 0; i < this.width * this.height; i++) {
             world[r.nextInt(this.width)][r.nextInt(this.height)][1] = 1;
         }
-//        world[this.width/2][this.height/2][1] = 1;
-//        random配置をするかも
     }
 
     public void update(){
@@ -34,7 +31,6 @@ public class CellularAutomata {
                 if ((world[x][y][1] == 1) || (world[x][y][1] == 0 && world[x][y][0] == 1))
                 {
                     world[x][y][0] = 1;
-//                    point(x, y);
                 }
                 if (world[x][y][1] == 0)
                 {

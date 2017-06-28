@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         model = new CellularAutomata(width_length,height_lenght);
-
         int num = width_length;
         gridView = (GridView)findViewById(R.id.main_table);
         gridView.setNumColumns(num);
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 cell.INDEX_X=i;
                 cell.INDEX_Y=j;
                 if(model.world[cell.INDEX_X][cell.INDEX_Y][1] == 1) {
-                    cell.checked = true;
+                    cell.setChecked(true);
                 }
                 list.add(cell);
             }
@@ -85,18 +84,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reflectionModel(CellularAutomata model){
-        adapter.clear();
+//        adapter.clear();
         for(CellView cell :list){
-            if(cell.isChecked())
-            if(model.world[cell.INDEX_X][cell.INDEX_Y][1] !=  1 ) {
-                cell.toggle();
-            }
+            if ((model.world[cell.INDEX_X][cell.INDEX_Y][1] == 1)
+                    || (model.world[cell.INDEX_X][cell.INDEX_Y][1] == 0
+                    && model.world[cell.INDEX_X][cell.INDEX_Y][0] == 1))
+                cell.setChecked(true);
+
+            if(model.world[cell.INDEX_X][cell.INDEX_Y][1] == 0)
+                cell.setChecked(false);
         }
-        adapter.addAll(list);
-
-//        list.clear();
-//        list = load(model);
-
+//        adapter.addAll(list);
+//        adapter.notifyDataSetChanged();
     }
 
     class MyTimerTask extends TimerTask{
@@ -105,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             handler.post( new Runnable() {
                 public void run() {
-//                    model.update();
-//                    reflectionModel(model);
-//                    adapter.notifyDataSetChanged();
+                    model.update();
+                    reflectionModel(model);
+                    adapter.notifyDataSetChanged();
 //                    gridView.invalidateViews();
                     count++;
                     Log.i("update","hoge" +count);

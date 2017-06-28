@@ -71,18 +71,7 @@ public class CellView extends AppCompatButton implements Checkable {
                 return true;
             }
         });
-
-//
-//        OnClickListener listener = new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int i =v.getId();
-//                ((CellView)v).reverseStatus();
-//                Log.i("Clicked", ""+v.getId());
-//            }
-//        };
         this.setOnTouchListener(oListener);
-
     }
 
     @Override

@@ -18,10 +18,11 @@ public class CellularAutomata {
         world = new int[this.width][this.height][2];
 
         Random r = new Random();
-        int n = r.nextInt(50);
+//        int n = r.nextInt(50);
         for (int i = 0; i < this.width * this.height; i++) {
             world[r.nextInt(this.width)][r.nextInt(this.height)][1] = 1;
         }
+//        world[this.width/2][this.height/2][1] = 1;
 //        random配置をするかも
     }
 
@@ -50,11 +51,11 @@ public class CellularAutomata {
                 int count = neighbors(x, y);
 
                 //もし自分自身が死んでいて、周囲のセル3つが生きていたら復活する
-                if ((count >= 3) && world[x][y][0] == 0)
+                if ((count >= 3 && count <= 5) && world[x][y][0] == 0)
                 {
                     world[x][y][1] = 1;
                 }
-                if ((count == 0 || count == 4) && world[x][y][0] == 1)
+                if ((count <= 2 || count >= 6)  && world[x][y][0] == 1)
                 {
                     world[x][y][1] = 0;
                 }

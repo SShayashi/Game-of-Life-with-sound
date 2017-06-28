@@ -23,25 +23,36 @@ import android.os.Handler;
 import java.util.Timer;
 
 import com.google.android.gms.plus.model.people.Person;
+import com.sshayashi.musicgame.Models.CellularAutomata;
 
 public class MainActivity extends AppCompatActivity {
     private Timer timer = null;
     private Handler handler = null;
     private MyTimerTask timerTask = null;
     private int count=0;
+    ArrayList<CellView> list;
+    CellularAutomata model;
+    ViewAdapter adapter;
+    GridView gridView;
 
     int width_length = 12;
+    int height_lenght = 11;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Resources res = getResources();
+
+
+        model = new CellularAutomata(width_length,height_lenght);
+
         int num = width_length;
-        GridView gridView = (GridView)findViewById(R.id.main_table);
+        gridView = (GridView)findViewById(R.id.main_table);
         gridView.setNumColumns(num);
-        ArrayList<CellView> list = load();
-        ViewAdapter adapter = new ViewAdapter(getApplicationContext(), R.layout.cell_view, list);
+        list = load(model);
+
+        adapter = new ViewAdapter(getApplicationContext(), R.layout.cell_view, list);
         gridView.setAdapter(adapter);
+
 
 //        BitmapAdapter adapter;
 //        View v = inflater.inflate(R.layout.fragment_cells_world, container, false);
@@ -55,23 +66,37 @@ public class MainActivity extends AppCompatActivity {
         timer.schedule(timerTask,500,500);
     }
 
-    private ArrayList<CellView> load() {
+    private ArrayList<CellView> load(CellularAutomata model) {
         ArrayList<CellView> list = new ArrayList<CellView>();
-        int view_id = 1;
-        for(int i=1;i<=width_length;i++) {
-            for(int j=1;j<= 11; j++) {
+        for(int i=0;i<width_length;i++) {
+            for(int j=0;j< height_lenght; j++) {
                 LayoutInflater inflater = getLayoutInflater();
                 View cellLayout = inflater.inflate(R.layout.cell_view, null);
                 CellView cell = (CellView) cellLayout.findViewById(R.id.cell_view);
-                list.add(cell);
-                cell.setId(R.id.cell_view + view_id);
-                cell.setTag("" + view_id);
-                view_id++;
                 cell.INDEX_X=i;
                 cell.INDEX_Y=j;
+                if(model.world[cell.INDEX_X][cell.INDEX_Y][1] == 1) {
+                    cell.checked = true;
+                }
+                list.add(cell);
             }
         }
         return list;
+    }
+
+    public void reflectionModel(CellularAutomata model){
+        adapter.clear();
+        for(CellView cell :list){
+            if(cell.isChecked())
+            if(model.world[cell.INDEX_X][cell.INDEX_Y][1] !=  1 ) {
+                cell.toggle();
+            }
+        }
+        adapter.addAll(list);
+
+//        list.clear();
+//        list = load(model);
+
     }
 
     class MyTimerTask extends TimerTask{
@@ -80,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             handler.post( new Runnable() {
                 public void run() {
+//                    model.update();
+//                    reflectionModel(model);
+//                    adapter.notifyDataSetChanged();
+//                    gridView.invalidateViews();
                     count++;
                     Log.i("update","hoge" +count);
                 }

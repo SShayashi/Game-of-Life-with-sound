@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.support.v7.widget.AppCompatButton;
 import android.view.ViewGroup;
+import android.widget.Checkable;
 
 import com.google.android.gms.plus.PlusOneButton;
 
@@ -22,8 +23,9 @@ import com.google.android.gms.plus.PlusOneButton;
 /**
  * TODO: document your custom view class.
  */
-public class CellView extends AppCompatButton {
-    private int isAlive =0;
+public class CellView extends AppCompatButton implements Checkable {
+    private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
+    boolean checked;
     int INDEX_X = 0;
     int INDEX_Y = 0;
     private float mTextWidth;
@@ -65,7 +67,7 @@ public class CellView extends AppCompatButton {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) return true;
                 // don't handle event unless its ACTION_UP so "doSomething()" only runs once.
                 if (event.getAction() != MotionEvent.ACTION_UP) return false;
-                ((CellView)v).reverseStatus();
+                ((CellView)v).toggle();
                 return true;
             }
         });
@@ -89,14 +91,43 @@ public class CellView extends AppCompatButton {
 
     }
 
+    @Override
+    public void setChecked(boolean checked) {
+        if (this.checked != checked) {
+            this.checked = checked;
+            refreshDrawableState();
+        }
+    }
+
+    @Override
+    public boolean isChecked() {
+        return checked;
+    }
+
+    @Override
+    public void toggle() {
+        setChecked(!checked);
+    }
+
+    @Override
+    public int[] onCreateDrawableState(int extraSpace) {
+        final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
+        if (isChecked()) {
+            mergeDrawableStates(drawableState, CHECKED_STATE_SET);
+        }
+        return drawableState;
+    }
+
     public void reverseStatus(){
-        if(isAlive == 0) {
-            isAlive = 1;
-            this.setPressed(true);
-        }else if(isAlive ==1) {
-            isAlive = 0;
-            this.setPressed(false);
-        } else
-            Log.d("error","error");
+//        if(isAlive == 0) {
+//            isAlive = 1;
+//            this.setSelected(true);
+//            this.invalidate();
+//        }else if(isAlive ==1) {
+//            isAlive = 0;
+//            this.setSelected(false);
+//            this.invalidate();
+//        } else
+//            Log.d("error","error");
     }
 }

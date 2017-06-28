@@ -6,7 +6,7 @@ package com.sshayashi.musicgame.Models;
 import java.util.Random;
 
 public class CellularAutomata {
-    int[][][] world;
+    public int[][][] world;
     int width, height;
 
 
@@ -35,13 +35,32 @@ public class CellularAutomata {
                     world[x][y][0] = 1;
 //                    point(x, y);
                 }
-                if (world[x][y][1] == -1)
+                if (world[x][y][1] == 0)
                 {
                     world[x][y][0] = 0;
                 }
                 world[x][y][1] = 0;
             }
         }
+
+        for (int x = 0; x < width; x=x+1) {
+            for (int y = 0; y < height; y=y+1) {
+
+                //周囲のセルの生死状態をカウントする
+                int count = neighbors(x, y);
+
+                //もし自分自身が死んでいて、周囲のセル3つが生きていたら復活する
+                if ((count >= 3) && world[x][y][0] == 0)
+                {
+                    world[x][y][1] = 1;
+                }
+                if ((count == 0 || count == 4) && world[x][y][0] == 1)
+                {
+                    world[x][y][1] = 0;
+                }
+            }
+        }
+
     }
 
     /* 周囲のセルの生死を判定する関数 */

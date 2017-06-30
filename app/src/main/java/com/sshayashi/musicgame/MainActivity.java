@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) return true;
                         if (event.getAction() != MotionEvent.ACTION_UP) return false;
                         CellView cv = (CellView)v;
+                        Log.d("button","X:" +cv.INDEX_X + "   Y:" + cv.INDEX_Y);
                         if(cv.isChecked())
                             model.world[cv.INDEX_X][cv.INDEX_Y][1]=0;
                         else

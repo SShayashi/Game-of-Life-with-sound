@@ -35,7 +35,7 @@ public class SoundPlayer
 
         musicIds = new int[12];
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+            soundPool = new SoundPool(130, AudioManager.STREAM_MUSIC, 0);
         } else {
             audioAttributes = new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_GAME)
@@ -47,7 +47,7 @@ public class SoundPlayer
             soundPool = new SoundPool.Builder()
                     .setAudioAttributes(audioAttributes)
                     // ストリーム数に応じて
-                    .setMaxStreams(2)
+                    .setMaxStreams(130)
                     .build();
         }
         musicIds[0] = soundPool.load(MyApplication.getAppContext(),R.raw.piano2_1do,1);
